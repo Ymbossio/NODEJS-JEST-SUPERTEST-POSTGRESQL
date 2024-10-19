@@ -1,6 +1,6 @@
 import supertest from 'supertest';
-import { app } from '../../index.js';
-import { sequelize } from '../infrastructure/sequelize.js';
+import { app } from '../../../index.js';
+import { sequelize } from '../../infrastructure/sequelize.js';
 
 const request = supertest(app);
 

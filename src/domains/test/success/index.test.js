@@ -1,11 +1,11 @@
 import supertest from 'supertest';
-import { app } from '../../index.js';
-import { sequelize } from '../infrastructure/sequelize.js';
+import { app } from '../../../index.js';
+import { sequelize } from '../../infrastructure/sequelize.js';
 
 const request = supertest(app);
 
 beforeAll(async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
 });
 
 afterAll(async () => {
@@ -14,6 +14,7 @@ afterAll(async () => {
 
 describe('GET /v1/users', () => {
   it('should return a list of users', async () => {
+
     const response = await request.get('/v1/users');
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
@@ -27,5 +28,6 @@ describe('GET /v1/users', () => {
       ]),
       success: true
     });
+
   });
 });

@@ -61,7 +61,15 @@ export const deleteUser = async (req, res) => {
             return res.status(400).json({ success: false, message: 'El id debe ser un número entero' });
         }
 
-        const response = await service.delete(id)
+        // Verificar si el usuario existe
+        const user = await service.findOne(id); 
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'Usuario no encontrado' });
+        }
+
+        await service.delete(id)
+        
         res.status(200).json({success: true, data: "Registro eliminado exitosamente"})
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
